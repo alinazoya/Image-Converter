@@ -1,25 +1,30 @@
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Image Filter App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h2>Image Converter 🖼️</h2>
-        <input type="file" id="imageInput" accept="image/*">
-        <select id="formatSelect">
-            <option value="png">PNG</option>
-            <option value="jpeg">JPG</option>
-            <option value="webp">WEBP</option>
-        </select>
-        <button onclick="convertImage()">Convert</button>
-        <canvas id="canvas"></canvas>
-        <a id="downloadLink" style="display:none">Download Converted Image</a>
-    </div>
+        <h1>Image Converter</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <select name="filter" required>
+                <option value="">Select Filter</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="negative">Negative</option>
+                <option value="cartoon">Cartoon</option>
+            </select>
+            <button type="submit">Apply Filter</button>
+        </form>
 
-    <script src="script.js"></script>
+        {% if download_link %}
+            <p>Your image is ready:</p>
+            <a href="{{ download_link }}" download>Click here to download the filtered image</a>
+        {% endif %}
+    </div>
 </body>
 </html>
+
